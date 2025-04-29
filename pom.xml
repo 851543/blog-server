@@ -234,6 +234,13 @@
                 <version>${server.version}</version>
             </dependency>
 
+            <!-- blog -->
+            <dependency>
+                <groupId>com.server</groupId>
+                <artifactId>server-blog</artifactId>
+                <version>${server.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

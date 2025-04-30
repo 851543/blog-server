@@ -1,7 +1,7 @@
 package com.server.domain.dto;
 
-import com.aurora.entity.Tag;
-import com.aurora.entity.UserInfo;
+import com.server.core.domain.entity.SysUser;
+import com.server.domain.Tag;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -28,7 +28,7 @@ public class ArticleCardDTO {
 
     private Integer isFeatured;
 
-    private UserInfo author;
+    private SysUser author;
 
     private String categoryName;
 

@@ -120,6 +120,15 @@ mybatis:
   # 加载全局的配置文件
   configLocation: classpath:mybatis/mybatis-config.xml
 
+# MyBatis-Plus配置
+mybatis-plus:
+  # 配置mapper的扫描，找到所有的mapper.xml映射文件
+  mapperLocations: classpath:mapper/*.xml
+  # 加载全局的配置文件
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+
 # PageHelper分页插件
 pagehelper:
   helperDialect: mysql
@@ -141,3 +150,9 @@ xss:
   excludes: /system/notice
   # 匹配链接
   urlPatterns: /system/*,/monitor/*,/tool/*
+
+search:
+  mode: elasticsearch
+
+upload:
+  mode: oss

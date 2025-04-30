@@ -56,4 +56,14 @@ public enum BusinessType
      * 清空数据
      */
     CLEAN,
+
+    /**
+     * 保存和修改
+     */
+    SAVE_AND_UPDATE,
+
+    /**
+     * 上传
+     */
+    UPLOAD
 }

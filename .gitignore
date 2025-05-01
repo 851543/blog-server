@@ -12,7 +12,7 @@ target/
 *.iml
 *.ipr
 
-application-dev.yml
+**application-dev.yml
 
 ### Eclipse ###
 .apt_generated

@@ -114,7 +114,7 @@ public class MyBatisConfig
         return resources.toArray(new Resource[resources.size()]);
     }
 
-    @Bean
+    @Bean(value = "MyBatis")
     public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception
     {
         String typeAliasesPackage = env.getProperty("mybatis.typeAliasesPackage");

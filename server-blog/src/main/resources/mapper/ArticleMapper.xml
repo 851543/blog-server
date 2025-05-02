@@ -87,11 +87,11 @@
                      status,
                      create_time,
                      update_time
-              FROM t_article) a
-                 LEFT JOIN t_article_tag at
+              FROM blog_article) a
+                 LEFT JOIN blog_article_tag at
                            ON a.id = at.article_id
-                 LEFT JOIN t_tag t ON t.id = at.tag_id
-                 LEFT JOIN t_category c ON a.category_id = c.id
+                 LEFT JOIN blog_tag t ON t.id = at.tag_id
+                 LEFT JOIN blog_category c ON a.category_id = c.id
                  LEFT JOIN t_user_info u ON a.user_id = u.id
         where a.is_delete = 0
           and a.status in (1, 2)
@@ -125,15 +125,15 @@
                      status,
                      create_time,
                      update_time
-              FROM t_article
+              FROM blog_article
               where is_delete = 0
                 and status in (1, 2)
               order by id desc
               LIMIT #{current} , #{size}) a
-                 LEFT JOIN t_article_tag at
+                 LEFT JOIN blog_article_tag at
                            ON a.id = at.article_id
-                 LEFT JOIN t_tag t ON t.id = at.tag_id
-                 LEFT JOIN t_category c ON a.category_id = c.id
+                 LEFT JOIN blog_tag t ON t.id = at.tag_id
+                 LEFT JOIN blog_category c ON a.category_id = c.id
                  LEFT JOIN t_user_info u ON a.user_id = u.id
     </select>
     <select id="getArticlesByCategoryId" resultMap="ArticleCardDTOResultMap">
@@ -164,16 +164,16 @@
                      status,
                      create_time,
                      update_time
-              FROM t_article
+              FROM blog_article
               WHERE category_id = #{categoryId}
                 and is_delete = 0
                 and status in (1, 2)
               order by id desc
               LIMIT #{current} , #{size}) a
-                 LEFT JOIN t_article_tag at
+                 LEFT JOIN blog_article_tag at
                            ON a.id = at.article_id
-                 LEFT JOIN t_tag t ON t.id = at.tag_id
-                 LEFT JOIN t_category c ON a.category_id = c.id
+                 LEFT JOIN blog_tag t ON t.id = at.tag_id
+                 LEFT JOIN blog_category c ON a.category_id = c.id
                  LEFT JOIN t_user_info u ON a.user_id = u.id
     </select>
     <select id="getArticleById" resultMap="ArticleDTOResultMap">
@@ -207,14 +207,14 @@
                      original_url,
                      create_time,
                      update_time
-              FROM t_article
+              FROM blog_article
               WHERE id = #{articleId}
                 and is_delete = 0
                 and status in (1, 2)) a
-                 LEFT JOIN t_article_tag at
+                 LEFT JOIN blog_article_tag at
                            ON a.id = at.article_id
-                 LEFT JOIN t_tag t ON t.id = at.tag_id
-                 LEFT JOIN t_category c ON a.category_id = c.id
+                 LEFT JOIN blog_tag t ON t.id = at.tag_id
+                 LEFT JOIN blog_category c ON a.category_id = c.id
                  LEFT JOIN t_user_info u ON a.user_id = u.id
     </select>
     <select id="getPreArticleById" resultMap="ArticleCardDTOResultMap">
@@ -245,16 +245,16 @@
                      status,
                      create_time,
                      update_time
-              FROM t_article
+              FROM blog_article
               WHERE id &lt; #{articleId}
                 and is_delete = 0
                 and status in (1, 2)
               order by id desc
               limit 0, 1) a
-                 LEFT JOIN t_article_tag at
+                 LEFT JOIN blog_article_tag at
                            ON a.id = at.article_id
-                 LEFT JOIN t_tag t ON t.id = at.tag_id
-                 LEFT JOIN t_category c ON a.category_id = c.id
+                 LEFT JOIN blog_tag t ON t.id = at.tag_id
+                 LEFT JOIN blog_category c ON a.category_id = c.id
                  LEFT JOIN t_user_info u ON a.user_id = u.id
     </select>
     <select id="getNextArticleById" resultMap="ArticleCardDTOResultMap">
@@ -285,16 +285,16 @@
                      status,
                      create_time,
                      update_time
-              FROM t_article
+              FROM blog_article
               WHERE id &gt; #{articleId}
                 and is_delete = 0
                 and status in (1, 2)
               order by id
               limit 0,1) a
-                 LEFT JOIN t_article_tag at
+                 LEFT JOIN blog_article_tag at
                            ON a.id = at.article_id
-                 LEFT JOIN t_tag t ON t.id = at.tag_id
-                 LEFT JOIN t_category c ON a.category_id = c.id
+                 LEFT JOIN blog_tag t ON t.id = at.tag_id
+                 LEFT JOIN blog_category c ON a.category_id = c.id
                  LEFT JOIN t_user_info u ON a.user_id = u.id
     </select>
     <select id="getFirstArticle" resultMap="ArticleCardDTOResultMap">
@@ -325,15 +325,15 @@
                      status,
                      create_time,
                      update_time
-              FROM t_article
+              FROM blog_article
               WHERE is_delete = 0
                 and status in (1, 2)
               order by id
               limit 0,1) a
-                 LEFT JOIN t_article_tag at
+                 LEFT JOIN blog_article_tag at
                            ON a.id = at.article_id
-                 LEFT JOIN t_tag t ON t.id = at.tag_id
-                 LEFT JOIN t_category c ON a.category_id = c.id
+                 LEFT JOIN blog_tag t ON t.id = at.tag_id
+                 LEFT JOIN blog_category c ON a.category_id = c.id
                  LEFT JOIN t_user_info u ON a.user_id = u.id
     </select>
     <select id="getLastArticle" resultMap="ArticleCardDTOResultMap">
@@ -364,15 +364,15 @@
                      status,
                      create_time,
                      update_time
-              FROM t_article
+              FROM blog_article
               WHERE is_delete = 0
                 and status in (1, 2)
               order by id desc
               limit 0,1) a
-                 LEFT JOIN t_article_tag at
+                 LEFT JOIN blog_article_tag at
                            ON a.id = at.article_id
-                 LEFT JOIN t_tag t ON t.id = at.tag_id
-                 LEFT JOIN t_category c ON a.category_id = c.id
+                 LEFT JOIN blog_tag t ON t.id = at.tag_id
+                 LEFT JOIN blog_category c ON a.category_id = c.id
                  LEFT JOIN t_user_info u ON a.user_id = u.id
     </select>
     <select id="listArticlesByTagId" resultMap="ArticleCardDTOResultMap">
@@ -391,11 +391,11 @@
                u.avatar                        AS author_avatar,
                c.category_name                 AS category_name,
                tag_name
-        FROM t_article a
-                 LEFT JOIN t_article_tag at
+        FROM blog_article a
+                 LEFT JOIN blog_article_tag at
                            ON a.id = at.article_id
-                 LEFT JOIN t_tag t ON t.id = at.tag_id
-                 LEFT JOIN t_category c ON a.category_id = c.id
+                 LEFT JOIN blog_tag t ON t.id = at.tag_id
+                 LEFT JOIN blog_category c ON a.category_id = c.id
                  LEFT JOIN t_user_info u ON a.user_id = u.id
         WHERE at.tag_id = #{tagId}
           and a.is_delete = 0
@@ -409,7 +409,7 @@
                   article_abstract) AS article_content,
                status,
                create_time
-        FROM t_article
+        FROM blog_article
         WHERE is_delete = 0
           and (status = 1 or status = 2)
         ORDER BY create_time DESC
@@ -419,8 +419,8 @@
         SELECT
         count(DISTINCT a.id)
         from
-        t_article a
-        LEFT JOIN t_article_tag at on a.id = at.article_id
+        blog_article a
+        LEFT JOIN blog_article_tag at on a.id = at.article_id
         <where>
             is_delete = #{conditionVO.isDelete}
             <if test="conditionVO.keywords != null">
@@ -468,7 +468,7 @@
         create_time,
         category_id
         FROM
-        t_article
+        blog_article
         <where>
             is_delete = #{conditionVO.isDelete}
             <if test="conditionVO.keywords != null">
@@ -489,7 +489,7 @@
                 SELECT
                 article_id
                 FROM
-                t_article_tag
+                blog_article_tag
                 WHERE
                 tag_id = #{conditionVO.tagId}
                 )
@@ -501,9 +501,9 @@
         id DESC
         LIMIT #{current},#{size}
         ) a
-        LEFT JOIN t_category c ON a.category_id = c.id
-        LEFT JOIN t_article_tag at ON a.id = at.article_id
-        LEFT JOIN t_tag t ON t.id = at.tag_id
+        LEFT JOIN blog_category c ON a.category_id = c.id
+        LEFT JOIN blog_article_tag at ON a.id = at.article_id
+        LEFT JOIN blog_tag t ON t.id = at.tag_id
         ORDER BY
         is_top DESC,
         is_featured DESC,
@@ -512,7 +512,7 @@
     <select id="listArticleStatistics" resultType="com.server.domain.dto.ArticleStatisticsDTO">
         SELECT DATE_FORMAT(create_time, "%Y-%m-%d") AS date,
                COUNT(1)                             AS count
-        FROM t_article
+        FROM blog_article
         GROUP BY date
         ORDER BY date DESC
     </select>

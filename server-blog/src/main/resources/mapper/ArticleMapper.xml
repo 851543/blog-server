@@ -92,7 +92,7 @@
                            ON a.id = at.article_id
                  LEFT JOIN blog_tag t ON t.id = at.tag_id
                  LEFT JOIN blog_category c ON a.category_id = c.id
-                 LEFT JOIN t_user_info u ON a.user_id = u.id
+                 LEFT JOIN sys_user u ON a.user_id = u.id
         where a.is_delete = 0
           and a.status in (1, 2)
         order by is_top desc, is_featured desc
@@ -134,7 +134,7 @@
                            ON a.id = at.article_id
                  LEFT JOIN blog_tag t ON t.id = at.tag_id
                  LEFT JOIN blog_category c ON a.category_id = c.id
-                 LEFT JOIN t_user_info u ON a.user_id = u.id
+                 LEFT JOIN sys_user u ON a.user_id = u.id
     </select>
     <select id="getArticlesByCategoryId" resultMap="ArticleCardDTOResultMap">
         SELECT a.id                            AS id,
@@ -174,7 +174,7 @@
                            ON a.id = at.article_id
                  LEFT JOIN blog_tag t ON t.id = at.tag_id
                  LEFT JOIN blog_category c ON a.category_id = c.id
-                 LEFT JOIN t_user_info u ON a.user_id = u.id
+                 LEFT JOIN sys_user u ON a.user_id = u.id
     </select>
     <select id="getArticleById" resultMap="ArticleDTOResultMap">
         SELECT a.id            AS id,
@@ -215,7 +215,7 @@
                            ON a.id = at.article_id
                  LEFT JOIN blog_tag t ON t.id = at.tag_id
                  LEFT JOIN blog_category c ON a.category_id = c.id
-                 LEFT JOIN t_user_info u ON a.user_id = u.id
+                 LEFT JOIN sys_user u ON a.user_id = u.id
     </select>
     <select id="getPreArticleById" resultMap="ArticleCardDTOResultMap">
         SELECT a.id                            AS id,
@@ -255,7 +255,7 @@
                            ON a.id = at.article_id
                  LEFT JOIN blog_tag t ON t.id = at.tag_id
                  LEFT JOIN blog_category c ON a.category_id = c.id
-                 LEFT JOIN t_user_info u ON a.user_id = u.id
+                 LEFT JOIN sys_user u ON a.user_id = u.id
     </select>
     <select id="getNextArticleById" resultMap="ArticleCardDTOResultMap">
         SELECT a.id                            AS id,
@@ -295,7 +295,7 @@
                            ON a.id = at.article_id
                  LEFT JOIN blog_tag t ON t.id = at.tag_id
                  LEFT JOIN blog_category c ON a.category_id = c.id
-                 LEFT JOIN t_user_info u ON a.user_id = u.id
+                 LEFT JOIN sys_user u ON a.user_id = u.id
     </select>
     <select id="getFirstArticle" resultMap="ArticleCardDTOResultMap">
         SELECT a.id                            AS id,
@@ -334,7 +334,7 @@
                            ON a.id = at.article_id
                  LEFT JOIN blog_tag t ON t.id = at.tag_id
                  LEFT JOIN blog_category c ON a.category_id = c.id
-                 LEFT JOIN t_user_info u ON a.user_id = u.id
+                 LEFT JOIN sys_user u ON a.user_id = u.id
     </select>
     <select id="getLastArticle" resultMap="ArticleCardDTOResultMap">
         SELECT a.id                            AS id,
@@ -373,7 +373,7 @@
                            ON a.id = at.article_id
                  LEFT JOIN blog_tag t ON t.id = at.tag_id
                  LEFT JOIN blog_category c ON a.category_id = c.id
-                 LEFT JOIN t_user_info u ON a.user_id = u.id
+                 LEFT JOIN sys_user u ON a.user_id = u.id
     </select>
     <select id="listArticlesByTagId" resultMap="ArticleCardDTOResultMap">
         SELECT a.id                            AS id,
@@ -396,7 +396,7 @@
                            ON a.id = at.article_id
                  LEFT JOIN blog_tag t ON t.id = at.tag_id
                  LEFT JOIN blog_category c ON a.category_id = c.id
-                 LEFT JOIN t_user_info u ON a.user_id = u.id
+                 LEFT JOIN sys_user u ON a.user_id = u.id
         WHERE at.tag_id = #{tagId}
           and a.is_delete = 0
           and status in (1, 2)

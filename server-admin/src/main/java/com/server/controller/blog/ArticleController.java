@@ -4,13 +4,16 @@ import com.server.annotation.Log;
 import com.server.core.controller.BaseController;
 import com.server.core.domain.AjaxResult;
 import com.server.enums.BusinessType;
+import com.server.enums.FilePathEnum;
 import com.server.service.ArticleService;
 import com.server.domain.vo.*;
+import com.server.strategy.context.UploadStrategyContext;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 
@@ -23,6 +26,9 @@ public class ArticleController extends BaseController {
 
     @Autowired
     private ArticleService articleService;
+
+    @Autowired
+    private UploadStrategyContext uploadStrategyContext;
 
     @ApiOperation("获取置顶和推荐文章")
     @GetMapping("/topAndFeatured")
@@ -102,6 +108,14 @@ public class ArticleController extends BaseController {
     public AjaxResult deleteArticles(@RequestBody List<Integer> articleIds) {
         articleService.deleteArticles(articleIds);
         return success();
+    }
+
+    @Log(title = "文章管理", businessType = BusinessType.UPLOAD)
+    @ApiOperation("上传文章图片")
+    @ApiImplicitParam(name = "file", value = "文章图片", required = true, dataType = "MultipartFile")
+    @PostMapping("/admin/articles/images")
+    public AjaxResult saveArticleImages(MultipartFile file) {
+        return success(uploadStrategyContext.executeUploadStrategy(file, FilePathEnum.ARTICLE.getPath()));
     }
 
     @ApiOperation("根据id查看后台文章")

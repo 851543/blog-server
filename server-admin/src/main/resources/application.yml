@@ -157,3 +157,16 @@ search:
 
 upload:
   mode: oss
+  oss:
+    url: ${upload.oss.url}
+    endpoint: ${upload.oss.endpoint}
+    accessKeyId: ${upload.oss.accessKeyId}
+    accessKeySecret: ${upload.oss.accessKeySecret}
+    bucketName: ${upload.oss.bucketName}
+  minio:
+    url: ${upload.minio.url}
+    endpoint: ${upload.minio.endpoint}
+    accessKey: ${upload.minio.accessKey}
+    secretKey: ${upload.minio.secretKey}
+    bucketName: ${upload.minio.bucketName}
+

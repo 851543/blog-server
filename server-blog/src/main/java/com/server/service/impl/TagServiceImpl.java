@@ -52,7 +52,7 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements TagSe
             return new PageResultDTO<>();
         }
         List<TagAdminDTO> tags = tagMapper.listTagsAdmin(PageUtil.getLimitCurrent(), PageUtil.getSize(), conditionVO);
-        return new PageResultDTO<>(tags, count);
+        return new PageResultDTO<>(tags,count);
     }
 
     @SneakyThrows

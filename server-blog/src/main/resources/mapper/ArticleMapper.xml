@@ -13,7 +13,7 @@
         <result property="updateTime" column="update_time"/>
         <result property="categoryName" column="category_name"/>
         <association property="author" javaType="com.server.core.domain.entity.SysUser">
-            <result property="nickname" column="author_nickname"/>
+            <result property="nickName" column="author_nickname"/>
             <result property="website" column="author_website"/>
             <result property="avatar" column="author_avatar"/>
         </association>
@@ -34,7 +34,7 @@
         <result property="type" column="type"/>
         <result property="originalUrl" column="original_url"/>
         <association property="author" javaType="com.server.core.domain.entity.SysUser">
-            <result property="nickname" column="author_nickname"/>
+            <result property="nickName" column="author_nickname"/>
             <result property="website" column="author_website"/>
             <result property="avatar" column="author_avatar"/>
         </association>
@@ -66,10 +66,10 @@
                if(article_abstract is null or article_abstract = '', SUBSTR(article_content, 1, 500), article_abstract) AS article_content,
                is_top,
                is_featured,
-               status,
+               a.status AS status,
                a.create_time                   AS create_time,
                a.update_time                   AS update_time,
-               u.nickname                      AS author_nickname,
+               u.nick_name                      AS author_nickname,
                u.website                       AS author_website,
                u.avatar                        AS author_avatar,
                c.category_name                 AS category_name,
@@ -92,7 +92,7 @@
                            ON a.id = at.article_id
                  LEFT JOIN blog_tag t ON t.id = at.tag_id
                  LEFT JOIN blog_category c ON a.category_id = c.id
-                 LEFT JOIN sys_user u ON a.user_id = u.id
+                 LEFT JOIN sys_user u ON a.user_id = u.user_id
         where a.is_delete = 0
           and a.status in (1, 2)
         order by is_top desc, is_featured desc
@@ -104,10 +104,10 @@
                if(article_abstract is null or article_abstract = '', SUBSTR(article_content, 1, 500), article_abstract) AS article_content,
                is_top,
                is_featured,
-               status,
+               a.status AS status,
                a.create_time                   AS create_time,
                a.update_time                   AS update_time,
-               u.nickname                      AS author_nickname,
+               u.nick_name                      AS author_nickname,
                u.website                       AS author_website,
                u.avatar                        AS author_avatar,
                c.category_name                 AS category_name,
@@ -134,7 +134,7 @@
                            ON a.id = at.article_id
                  LEFT JOIN blog_tag t ON t.id = at.tag_id
                  LEFT JOIN blog_category c ON a.category_id = c.id
-                 LEFT JOIN sys_user u ON a.user_id = u.id
+                 LEFT JOIN sys_user u ON a.user_id = u.user_id
     </select>
     <select id="getArticlesByCategoryId" resultMap="ArticleCardDTOResultMap">
         SELECT a.id                            AS id,
@@ -143,10 +143,10 @@
                if(article_abstract is null or article_abstract = '', SUBSTR(article_content, 1, 500), article_abstract) AS article_content,
                is_top,
                is_featured,
-               status,
+               a.status AS status,
                a.create_time                   AS create_time,
                a.update_time                   AS update_time,
-               u.nickname                      AS author_nickname,
+               u.nick_name                      AS author_nickname,
                u.website                       AS author_website,
                u.avatar                        AS author_avatar,
                c.category_name                 AS category_name,
@@ -174,7 +174,7 @@
                            ON a.id = at.article_id
                  LEFT JOIN blog_tag t ON t.id = at.tag_id
                  LEFT JOIN blog_category c ON a.category_id = c.id
-                 LEFT JOIN sys_user u ON a.user_id = u.id
+                 LEFT JOIN sys_user u ON a.user_id = u.user_id
     </select>
     <select id="getArticleById" resultMap="ArticleDTOResultMap">
         SELECT a.id            AS id,
@@ -187,7 +187,7 @@
                original_url,
                a.create_time   AS create_time,
                a.update_time   AS update_time,
-               u.nickname      AS author_nickname,
+               u.nick_name      AS author_nickname,
                u.website       AS author_website,
                u.avatar        AS author_avatar,
                c.category_name AS category_name,
@@ -215,7 +215,7 @@
                            ON a.id = at.article_id
                  LEFT JOIN blog_tag t ON t.id = at.tag_id
                  LEFT JOIN blog_category c ON a.category_id = c.id
-                 LEFT JOIN sys_user u ON a.user_id = u.id
+                 LEFT JOIN sys_user u ON a.user_id = u.user_id
     </select>
     <select id="getPreArticleById" resultMap="ArticleCardDTOResultMap">
         SELECT a.id                            AS id,
@@ -224,10 +224,10 @@
                if(article_abstract is null or article_abstract = '', SUBSTR(article_content, 1, 500), article_abstract) AS article_content,
                is_top,
                is_featured,
-               status,
+               a.status AS status,
                a.create_time                   AS create_time,
                a.update_time                   AS update_time,
-               u.nickname                      AS author_nickname,
+               u.nick_name                      AS author_nickname,
                u.website                       AS author_website,
                u.avatar                        AS author_avatar,
                c.category_name                 AS category_name,
@@ -255,7 +255,7 @@
                            ON a.id = at.article_id
                  LEFT JOIN blog_tag t ON t.id = at.tag_id
                  LEFT JOIN blog_category c ON a.category_id = c.id
-                 LEFT JOIN sys_user u ON a.user_id = u.id
+                 LEFT JOIN sys_user u ON a.user_id = u.user_id
     </select>
     <select id="getNextArticleById" resultMap="ArticleCardDTOResultMap">
         SELECT a.id                            AS id,
@@ -264,10 +264,10 @@
                if(article_abstract is null or article_abstract = '', SUBSTR(article_content, 1, 500), article_abstract) AS article_content,
                is_top,
                is_featured,
-               status,
+               a.status AS status,
                a.create_time                   AS create_time,
                a.update_time                   AS update_time,
-               u.nickname                      AS author_nickname,
+               u.nick_name                      AS author_nickname,
                u.website                       AS author_website,
                u.avatar                        AS author_avatar,
                c.category_name                 AS category_name,
@@ -295,7 +295,7 @@
                            ON a.id = at.article_id
                  LEFT JOIN blog_tag t ON t.id = at.tag_id
                  LEFT JOIN blog_category c ON a.category_id = c.id
-                 LEFT JOIN sys_user u ON a.user_id = u.id
+                 LEFT JOIN sys_user u ON a.user_id = u.user_id
     </select>
     <select id="getFirstArticle" resultMap="ArticleCardDTOResultMap">
         SELECT a.id                            AS id,
@@ -304,10 +304,10 @@
                if(article_abstract is null or article_abstract = '', SUBSTR(article_content, 1, 500), article_abstract) AS article_content,
                is_top,
                is_featured,
-               status,
+               a.status AS status,
                a.create_time                   AS create_time,
                a.update_time                   AS update_time,
-               u.nickname                      AS author_nickname,
+               u.nick_name                      AS author_nickname,
                u.website                       AS author_website,
                u.avatar                        AS author_avatar,
                c.category_name                 AS category_name,
@@ -334,7 +334,7 @@
                            ON a.id = at.article_id
                  LEFT JOIN blog_tag t ON t.id = at.tag_id
                  LEFT JOIN blog_category c ON a.category_id = c.id
-                 LEFT JOIN sys_user u ON a.user_id = u.id
+                 LEFT JOIN sys_user u ON a.user_id = u.user_id
     </select>
     <select id="getLastArticle" resultMap="ArticleCardDTOResultMap">
         SELECT a.id                            AS id,
@@ -343,10 +343,10 @@
                if(article_abstract is null or article_abstract = '', SUBSTR(article_content, 1, 500), article_abstract) AS article_content,
                is_top,
                is_featured,
-               status,
+               a.status AS status,
                a.create_time                   AS create_time,
                a.update_time                   AS update_time,
-               u.nickname                      AS author_nickname,
+               u.nick_name                      AS author_nickname,
                u.website                       AS author_website,
                u.avatar                        AS author_avatar,
                c.category_name                 AS category_name,
@@ -373,7 +373,7 @@
                            ON a.id = at.article_id
                  LEFT JOIN blog_tag t ON t.id = at.tag_id
                  LEFT JOIN blog_category c ON a.category_id = c.id
-                 LEFT JOIN sys_user u ON a.user_id = u.id
+                 LEFT JOIN sys_user u ON a.user_id = u.user_id
     </select>
     <select id="listArticlesByTagId" resultMap="ArticleCardDTOResultMap">
         SELECT a.id                            AS id,
@@ -383,10 +383,10 @@
                if(article_abstract is null or article_abstract = '', SUBSTR(article_content, 1, 500), article_abstract) AS article_content,
                is_top,
                is_featured,
-               status,
+               a.status AS status,
                a.create_time                   AS create_time,
                a.update_time                   AS update_time,
-               u.nickname                      AS author_nickname,
+               u.nick_name                      AS author_nickname,
                u.website                       AS author_website,
                u.avatar                        AS author_avatar,
                c.category_name                 AS category_name,
@@ -396,7 +396,7 @@
                            ON a.id = at.article_id
                  LEFT JOIN blog_tag t ON t.id = at.tag_id
                  LEFT JOIN blog_category c ON a.category_id = c.id
-                 LEFT JOIN sys_user u ON a.user_id = u.id
+                 LEFT JOIN sys_user u ON a.user_id = u.user_id
         WHERE at.tag_id = #{tagId}
           and a.is_delete = 0
           and status in (1, 2)

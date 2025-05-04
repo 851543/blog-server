@@ -285,17 +285,34 @@ public class RedisCache {
                 ));
     }
 
+    public Map<Object, Double> zReverseRangeWithScore(String key, long start, long end) {
+        return (Map<Object, Double>) Objects.requireNonNull(redisTemplate.opsForZSet().rangeWithScores(key, start, end))
+                .stream()
+                .collect(Collectors.toMap(
+                        tuple -> ((ZSetOperations.TypedTuple<Object>) tuple).getValue(),
+                        tuple -> ((ZSetOperations.TypedTuple<Double>) tuple).getScore()
+                ));
+    }
 
 
     /**
      * 为集合中的元素增加分数
      *
-     * @param key 键值
-     * @param value 元素值
+     * @param key       键值
+     * @param value     元素值
      * @param increment 增加的分数值
      * @return 增加后的新分数
      */
     public Double incrementScore(final String key, final Object value, final double increment) {
         return redisTemplate.opsForZSet().incrementScore(key, value, increment);
     }
+
+    public Long increment(String key, String hashKey, Long delta) {
+        return redisTemplate.opsForHash().increment(key, hashKey, delta);
+    }
+
+    public Long increment(String key, long delta) {
+        return redisTemplate.opsForValue().increment(key, delta);
+    }
+
 }

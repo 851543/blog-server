@@ -133,4 +133,6 @@ public interface SysUserMapper
      * @return 结果
      */
     SysUser selectUserByEmail(String email);
+
+    Integer selectCount(SysUser user);
 }

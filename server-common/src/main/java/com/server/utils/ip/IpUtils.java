@@ -2,6 +2,7 @@ package com.server.utils.ip;
 
 import com.server.utils.ServletUtils;
 import com.server.utils.StringUtils;
+import eu.bitwalker.useragentutils.UserAgent;
 
 import javax.servlet.http.HttpServletRequest;
 import java.net.InetAddress;
@@ -379,5 +380,9 @@ public class IpUtils
             }
         }
         return false;
+    }
+
+    public static UserAgent getUserAgent(HttpServletRequest request) {
+        return UserAgent.parseUserAgentString(request.getHeader("User-Agent"));
     }
 }

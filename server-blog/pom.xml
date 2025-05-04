@@ -69,10 +69,24 @@
             <version>8.4.1</version>
         </dependency>
 
-        <!-- 通用工具-->
+        <!-- hutool -->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>5.7.5</version>
+        </dependency>
+
+        <!-- lionsoul -->
+        <dependency>
+            <groupId>org.lionsoul</groupId>
+            <artifactId>ip2region</artifactId>
+            <version>1.7.2</version>
+        </dependency>
+
+        <!-- 系统模块 -->
         <dependency>
             <groupId>com.server</groupId>
-            <artifactId>server-common</artifactId>
+            <artifactId>server-system</artifactId>
         </dependency>
 
     </dependencies>

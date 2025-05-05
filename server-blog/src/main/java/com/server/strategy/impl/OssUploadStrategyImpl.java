@@ -26,7 +26,7 @@ public class OssUploadStrategyImpl extends AbstractUploadStrategyImpl {
 
     @Override
     public String getFileAccessUrl(String filePath) {
-        return ossConfigProperties.getUrl() + "/" + filePath;
+        return "https://" + ossConfigProperties.getUrl() + "/" + filePath;
     }
 
     private OSS getOssClient() {

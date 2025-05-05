@@ -1,13 +1,10 @@
 package com.server.controller.blog;
 
 import com.server.annotation.Log;
-import com.server.domain.dto.AboutDTO;
-import com.server.domain.dto.AuroraAdminInfoDTO;
-import com.server.domain.dto.AuroraHomeInfoDTO;
-import com.server.domain.dto.WebsiteConfigDTO;
+import com.server.core.controller.BaseController;
+import com.server.core.domain.AjaxResult;
 import com.server.enums.BusinessType;
 import com.server.enums.FilePathEnum;
-import com.server.domain.vo.ResultVO;
 import com.server.service.AuroraInfoService;
 import com.server.strategy.context.UploadStrategyContext;
 import com.server.domain.vo.AboutVO;
@@ -23,7 +20,7 @@ import javax.validation.Valid;
 
 @Api(tags = "网站信息")
 @RestController
-public class WebsiteController {
+public class WebsiteController extends BaseController {
 
     @Autowired
     private AuroraInfoService auroraInfoService;
@@ -33,57 +30,57 @@ public class WebsiteController {
 
     @ApiOperation(value = "上报访客信息")
     @PostMapping("/report")
-    public ResultVO<?> report() {
+    public AjaxResult report() {
         auroraInfoService.report();
-        return ResultVO.ok();
+        return success();
     }
 
     @ApiOperation(value = "获取系统信息")
     @GetMapping("/")
-    public ResultVO<AuroraHomeInfoDTO> getBlogHomeInfo() {
-        return ResultVO.ok(auroraInfoService.getAuroraHomeInfo());
+    public AjaxResult getBlogHomeInfo() {
+        return success(auroraInfoService.getAuroraHomeInfo());
     }
 
     @ApiOperation(value = "获取系统后台信息")
     @GetMapping("/admin")
-    public ResultVO<AuroraAdminInfoDTO> getBlogBackInfo() {
-        return ResultVO.ok(auroraInfoService.getAuroraAdminInfo());
+    public AjaxResult getBlogBackInfo() {
+        return success(auroraInfoService.getAuroraAdminInfo());
     }
 
     @Log(title = "网站管理", businessType = BusinessType.UPDATE)
     @ApiOperation(value = "更新网站配置")
     @PutMapping("/admin/website/config")
-    public ResultVO<?> updateWebsiteConfig(@Valid @RequestBody WebsiteConfigVO websiteConfigVO) {
+    public AjaxResult updateWebsiteConfig(@Valid @RequestBody WebsiteConfigVO websiteConfigVO) {
         auroraInfoService.updateWebsiteConfig(websiteConfigVO);
-        return ResultVO.ok();
+        return success();
     }
 
     @ApiOperation(value = "获取网站配置")
     @GetMapping("/admin/website/config")
-    public ResultVO<WebsiteConfigDTO> getWebsiteConfig() {
-        return ResultVO.ok(auroraInfoService.getWebsiteConfig());
+    public AjaxResult getWebsiteConfig() {
+        return success(auroraInfoService.getWebsiteConfig());
     }
 
     @ApiOperation(value = "查看关于我信息")
     @GetMapping("/about")
-    public ResultVO<AboutDTO> getAbout() {
-        return ResultVO.ok(auroraInfoService.getAbout());
+    public AjaxResult getAbout() {
+        return success(auroraInfoService.getAbout());
     }
 
     @Log(title = "网站管理", businessType = BusinessType.UPDATE)
     @ApiOperation(value = "修改关于我信息")
     @PutMapping("/admin/about")
-    public ResultVO<?> updateAbout(@Valid @RequestBody AboutVO aboutVO) {
+    public AjaxResult updateAbout(@Valid @RequestBody AboutVO aboutVO) {
         auroraInfoService.updateAbout(aboutVO);
-        return ResultVO.ok();
+        return success();
     }
 
     @Log(title = "网站管理", businessType = BusinessType.UPLOAD)
     @ApiOperation(value = "上传博客配置图片")
     @ApiImplicitParam(name = "file", value = "图片", required = true, dataType = "MultipartFile")
     @PostMapping("/admin/config/images")
-    public ResultVO<String> savePhotoAlbumCover(MultipartFile file) {
-        return ResultVO.ok(uploadStrategyContext.executeUploadStrategy(file, FilePathEnum.CONFIG.getPath()));
+    public AjaxResult savePhotoAlbumCover(MultipartFile file) {
+        return success(uploadStrategyContext.executeUploadStrategy(file, FilePathEnum.CONFIG.getPath()));
     }
 
 }

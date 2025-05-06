@@ -16,6 +16,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Api(tags = "友链模块")
+@RequestMapping("/blog/link")
 @RestController
 public class FriendLinkController extends BaseController {
 

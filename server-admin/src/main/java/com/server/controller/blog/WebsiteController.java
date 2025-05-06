@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 
 @Api(tags = "网站信息")
+@RequestMapping("/blog/website")
 @RestController
 public class WebsiteController extends BaseController {
 

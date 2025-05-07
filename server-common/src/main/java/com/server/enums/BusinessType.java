@@ -65,5 +65,10 @@ public enum BusinessType
     /**
      * 上传
      */
-    UPLOAD
+    UPLOAD,
+
+    /**
+     * 保存
+     */
+    SAVE
 }

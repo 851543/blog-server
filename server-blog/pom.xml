@@ -83,6 +83,13 @@
             <version>1.7.2</version>
         </dependency>
 
+        <!-- houbb -->
+        <dependency>
+            <groupId>com.github.houbb</groupId>
+            <artifactId>sensitive-word</artifactId>
+            <version>0.2.0</version>
+        </dependency>
+
         <!-- 系统模块 -->
         <dependency>
             <groupId>com.server</groupId>

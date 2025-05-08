@@ -152,6 +152,9 @@ xss:
   # 匹配链接
   urlPatterns: /system/*,/monitor/*,/tool/*
 
+website:
+  url: https://前台域名
+
 search:
   mode: elasticsearch
 

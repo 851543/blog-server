@@ -3,7 +3,7 @@
 <mapper namespace="com.server.mapper.CommentMapper">
     <select id="listComments" resultType="com.server.domain.dto.CommentDTO">
         SELECT
-        u.nickname,
+        u.nick_name,
         u.avatar,
         u.website,
         c.user_id,
@@ -11,8 +11,8 @@
         c.comment_content,
         c.create_time
         FROM
-        t_comment c
-        JOIN t_user_info u ON c.user_id = u.id
+        blog_comment c
+        JOIN sys_user u ON c.user_id = u.user_id
         <where>
             <if test="commentVO.topicId != null">
                 topic_id = #{commentVO.topicId}
@@ -32,11 +32,11 @@
         (
         SELECT
         c.user_id,
-        u.nickname,
+        u.nick_name,
         u.avatar,
         u.website,
         c.reply_user_id,
-        r.nickname AS reply_nickname,
+        r.nick_name AS reply_nick_name,
         r.website AS reply_website,
         c.id,
         c.parent_id,
@@ -44,9 +44,9 @@
         c.create_time,
         row_number () over ( PARTITION BY parent_id ORDER BY create_time ASC ) row_num
         FROM
-        t_comment c
-        JOIN t_user_info u ON c.user_id = u.id
-        JOIN t_user_info r ON c.reply_user_id = r.id
+        blog_comment c
+        JOIN sys_user u ON c.user_id = u.user_id
+        JOIN sys_user r ON c.reply_user_id = r.user_id
         WHERE
         c.is_review = 1
         AND
@@ -60,15 +60,15 @@
         ) t
     </select>
     <select id="listTopSixComments" resultType="com.server.domain.dto.CommentDTO">
-        SELECT u.nickname,
+        SELECT u.nick_name,
                u.avatar,
                u.website,
                c.user_id,
                c.id,
                c.comment_content,
                c.create_time
-        FROM t_comment c
-                 JOIN t_user_info u ON c.user_id = u.id
+        FROM blog_comment c
+                 JOIN sys_user u ON c.user_id = u.user_id
         where c.is_review = 1
         ORDER BY c.id DESC
         LIMIT 0 , 6
@@ -77,8 +77,8 @@
         SELECT
         count(1)
         from
-        t_comment c
-        LEFT JOIN t_user_info u ON c.user_id = u.id
+        blog_comment c
+        LEFT JOIN sys_user u ON c.user_id = u.user_id
         <where>
             <if test="conditionVO.type != null">
                 c.type = #{conditionVO.type}
@@ -87,7 +87,7 @@
                 and c.is_review = #{conditionVO.isReview}
             </if>
             <if test="conditionVO.keywords != null">
-                and u.nickname like concat('%',#{conditionVO.keywords},'%')
+                and u.nick_name like concat('%',#{conditionVO.keywords},'%')
             </if>
         </where>
     </select>
@@ -95,18 +95,18 @@
         SELECT
         c.id,
         u.avatar,
-        u.nickname,
-        r.nickname AS reply_nickname,
+        u.nick_name,
+        r.nick_name AS reply_nick_name,
         a.article_title,
         c.comment_content,
         c.type,
         c.create_time,
         c.is_review
         FROM
-        t_comment c
-        LEFT JOIN t_article a ON c.topic_id = a.id
-        LEFT JOIN t_user_info u ON c.user_id = u.id
-        LEFT JOIN t_user_info r ON c.reply_user_id = r.id
+        blog_comment c
+        LEFT JOIN blog_article a ON c.topic_id = a.id
+        LEFT JOIN sys_user u ON c.user_id = u.user_id
+        LEFT JOIN sys_user r ON c.reply_user_id = r.user_id
         <where>
             <if test="conditionVO.type != null">
                 c.type = #{conditionVO.type}
@@ -115,7 +115,7 @@
                 and c.is_review = #{conditionVO.isReview}
             </if>
             <if test="conditionVO.keywords != null">
-                and u.nickname like concat('%',#{conditionVO.keywords},'%')
+                and u.nick_name like concat('%',#{conditionVO.keywords},'%')
             </if>
         </where>
         ORDER BY
@@ -127,7 +127,7 @@
         topic_id as id,
         COUNT( 1 ) AS comment_count
         FROM
-        t_comment
+        blog_comment
         WHERE type = #{type}
         AND
         topic_id IN
@@ -140,7 +140,7 @@
     <select id="listCommentCountByTypeAndTopicId" resultType="com.server.domain.dto.CommentCountDTO">
         SELECT topic_id as id,
                COUNT(1) AS comment_count
-        FROM t_comment
+        FROM blog_comment
         WHERE type = #{type}
           AND topic_id = #{topicId}
         GROUP BY topic_id

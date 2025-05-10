@@ -399,7 +399,7 @@
                  LEFT JOIN sys_user u ON a.user_id = u.user_id
         WHERE at.tag_id = #{tagId}
           and a.is_delete = 0
-          and status in (1, 2)
+          and a.status in (1, 2)
         LIMIT #{current} , #{size}
     </select>
     <select id="listArchives" resultType="com.server.domain.dto.ArticleCardDTO">

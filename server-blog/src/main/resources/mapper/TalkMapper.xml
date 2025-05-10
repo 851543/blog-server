@@ -3,14 +3,14 @@
 <mapper namespace="com.server.mapper.TalkMapper">
     <select id="listTalks" resultType="com.server.domain.dto.TalkDTO">
         SELECT t.id,
-               nickname,
+               nick_name,
                avatar,
                content,
                images,
                t.is_top,
                t.create_time
-        FROM t_talk t
-                 JOIN t_user_info ui ON t.user_id = ui.id
+        FROM blog_talk t
+                 JOIN sys_user ui ON t.user_id = ui.user_id
         WHERE t.status = 1
         ORDER BY t.is_top DESC,
                  t.id DESC
@@ -18,20 +18,20 @@
     </select>
     <select id="getTalkById" resultType="com.server.domain.dto.TalkDTO">
         SELECT t.id,
-               nickname,
+               nick_name,
                avatar,
                content,
                images,
                t.create_time
-        FROM t_talk t
-                 JOIN t_user_info ui ON t.user_id = ui.id
+        FROM blog_talk t
+                 JOIN sys_user ui ON t.user_id = ui.user_id
         WHERE t.id = #{talkId}
           AND t.status = 1
     </select>
     <select id="listTalksAdmin" resultType="com.server.domain.dto.TalkAdminDTO">
         SELECT
         t.id,
-        nickname,
+        nick_name,
         avatar,
         content,
         images,
@@ -39,8 +39,8 @@
         t.status,
         t.create_time
         FROM
-        t_talk t
-        JOIN t_user_info ui ON t.user_id = ui.id
+        blog_talk t
+        JOIN sys_user ui ON t.user_id = ui.user_id
         <where>
             <if test="conditionVO.status != null">
                 t.status = #{conditionVO.status}
@@ -53,15 +53,15 @@
     </select>
     <select id="getTalkByIdAdmin" resultType="com.server.domain.dto.TalkAdminDTO">
         SELECT t.id,
-               nickname,
+               nick_name,
                avatar,
                content,
                images,
                t.is_top,
                t.status,
                t.create_time
-        FROM t_talk t
-                 JOIN t_user_info ui ON t.user_id = ui.id
+        FROM blog_talk t
+                 JOIN sys_user ui ON t.user_id = ui.user_id
         WHERE t.id = #{talkId}
     </select>
 </mapper>

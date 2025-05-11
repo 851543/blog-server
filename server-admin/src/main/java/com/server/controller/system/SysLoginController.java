@@ -87,6 +87,16 @@ public class SysLoginController {
     }
 
     /**
+     * 退出登陆
+     *
+     */
+    @PostMapping("/logout")
+    @ApiOperation("退出登陆")
+    public AjaxResult logout(){
+        return redisCache.deleteObject(CacheConstants.LOGIN_TOKEN_KEY + SecurityUtils.getUserId()) ? AjaxResult.success() : AjaxResult.error();
+    }
+
+    /**
      * 忘记密码
      *
      * @param forgetPwdBody 忘记密码方法

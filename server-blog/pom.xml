@@ -90,11 +90,23 @@
             <version>0.2.0</version>
         </dependency>
 
+        <!-- thymeleaf -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>jakarta.mail</artifactId>
+        </dependency>
+
         <!-- 系统模块 -->
         <dependency>
             <groupId>com.server</groupId>
             <artifactId>server-system</artifactId>
         </dependency>
+
 
     </dependencies>
 

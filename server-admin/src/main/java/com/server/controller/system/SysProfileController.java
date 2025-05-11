@@ -2,7 +2,11 @@ package com.server.controller.system;
 
 import java.util.Map;
 
+import com.server.domain.vo.EmailVO;
+import com.server.enums.FilePathEnum;
+import com.server.strategy.context.UploadStrategyContext;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +31,8 @@ import com.server.utils.file.MimeTypeUtils;
 import com.server.web.service.TokenService;
 import com.server.service.ISysUserService;
 
+import javax.validation.Valid;
+
 /**
  * 个人信息 业务处理
  *
@@ -41,6 +47,9 @@ public class SysProfileController extends BaseController
 
     @Autowired
     private TokenService tokenService;
+
+    @Autowired
+    private UploadStrategyContext uploadStrategyContext;
 
     /**
      * 个人信息
@@ -67,6 +76,7 @@ public class SysProfileController extends BaseController
     {
         LoginUser loginUser = getLoginUser();
         SysUser currentUser = loginUser.getUser();
+        currentUser.setAvatar(user.getAvatar());
         currentUser.setNickName(user.getNickName());
         currentUser.setEmail(user.getEmail());
         currentUser.setPhonenumber(user.getPhonenumber());
@@ -143,5 +153,26 @@ public class SysProfileController extends BaseController
             }
         }
         return error("上传图片异常，请联系管理员");
+    }
+
+    /**
+     * 头像上传
+     */
+    @Log(title = "用户头像", businessType = BusinessType.UPLOAD)
+    @ApiOperation(value = "头像上传")
+    @ApiImplicitParam(name = "file", value = "头像", required = true, dataType = "MultipartFile")
+    @PostMapping("/blog/avatar")
+    public AjaxResult blogAvatar(MultipartFile file) {
+        return success(uploadStrategyContext.executeUploadStrategy(file, FilePathEnum.AVATAR.getPath()));
+    }
+
+    /**
+     * 绑定邮箱
+     */
+    @Log(title = "绑定邮箱", businessType = BusinessType.UPDATE)
+    @ApiOperation(value = "绑定邮箱")
+    @PutMapping("/blog/bind/email")
+    public AjaxResult bindEmail(@Valid @RequestBody EmailVO emailVO) {
+        return toAjax(userService.bindEmail(emailVO));
     }
 }

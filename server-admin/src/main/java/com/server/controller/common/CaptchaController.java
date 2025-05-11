@@ -107,4 +107,14 @@ public class CaptchaController {
     public AjaxResult getMailCode(@Email(message = "邮箱格式不正确")  @NotNull(message = "邮箱地址不能为空") String mailAddress){
         return AjaxResult.success(mailService.getCode(mailAddress));
     }
+
+    /**
+     * 生成邮箱验证码
+     */
+    @GetMapping("/blog/mailCode")
+    @ApiOperation("生成邮箱验证码")
+    public AjaxResult getBlogMailCode(@Email(message = "邮箱格式不正确")  @NotNull(message = "邮箱地址不能为空") String username){
+        mailService.sendCode(username);
+        return AjaxResult.success();
+    }
 }

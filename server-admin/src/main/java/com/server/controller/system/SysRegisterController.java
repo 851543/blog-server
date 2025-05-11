@@ -40,4 +40,17 @@ public class SysRegisterController extends BaseController
         String msg = registerService.register(user);
         return StringUtils.isEmpty(msg) ? success() : error(msg);
     }
+
+    /**
+     * 博客注册
+     * @param user
+     * @return
+     */
+    @PostMapping("/blog/register")
+    @ApiOperation("注册用户")
+    public AjaxResult blogRegister(@RequestBody RegisterBody user)
+    {
+        String msg = registerService.register(user);
+        return StringUtils.isEmpty(msg) ? success() : error(msg);
+    }
 }

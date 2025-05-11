@@ -17,6 +17,7 @@ import com.server.service.ISysConfigService;
 import com.server.service.ISysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ObjectUtils;
 
 /**
  * 注册校验方法
@@ -47,6 +48,9 @@ public class SysRegisterService {
             msg = MessageUtils.message("user.captcha.invalid");
         } else if (StringUtils.isEmpty(username)) {
             msg = "用户名不能为空";
+        }
+        if (!ObjectUtils.isEmpty(userService.selectUserByUserName(username))) {
+            msg = "用户名已存在";
         } else if (StringUtils.isEmpty(password)) {
             msg = "用户密码不能为空";
         } else if (username.length() < UserConstants.USERNAME_MIN_LENGTH
